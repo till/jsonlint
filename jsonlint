@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+/**
+ * WOOOO... JSONLINT!!!
+ *
+ * @author  Till Klampaeckel <till@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The New BSD License
+ * @version Git: $Id$
+ * @link    http://github.com/till/jsonlint
+ */
+if ($_SERVER['argv'][1] == '-h') {
+    echo "Usage:" . PHP_EOL;
+    echo "\tcat foo.json | ./jsonlint" . PHP_EOL;
+    echo "\techo '{\"foo\":\"bar\"}' | ./jsonlint" . PHP_EOL;
+    echo PHP_EOL;
+    exit(0);
+}
+$fp = fopen("php://stdin","r");
+if (!is_resource($fp)) {
+    echo "Could not open stdin." . PHP_EOL;
+    exit(1);
+}
+$keep = '';
+while (($buffer = fgets($fp, 4096)) !== false) {
+    $keep .= $buffer;
+}
+fclose($fp);
+$keep = trim($keep);
+if (empty($keep)) {
+    echo "Wat?" . PHP_EOL;
+    exit(1);
+}
+$json = json_decode($keep);
+if ($json === null || $json === false) {
+    echo "Invalid JSON." . PHP_EOL;
+    exit(1);
+}
+echo "Valid JSON." . PHP_EOL;
+exit(0);
