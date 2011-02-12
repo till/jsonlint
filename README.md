@@ -7,3 +7,10 @@ This is a super simple jsonlint for the cli. Written in PHP. ;-)
  * copy to /usr/bin etc.
  * use
 
+### Examples
+
+Run: `jsonlint -h`
+
+### License
+
+The new BSD License (of course)!
